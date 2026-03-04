@@ -6,16 +6,8 @@ on:
     types: [published]
 
 jobs:
-  build-and-upload:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-        with:
-          python-version: "3.11"
-      - name: Build package
-        run: uv build
-      - name: Upload to PyPI
-        run: uv publish
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+  uv-build-and-upload:
+    uses: enveda/reusable-workflows/.github/workflows/uv-build-and-upload.yml@v3
+    secrets: inherit
+    with:
+      python-version: "3.10"
