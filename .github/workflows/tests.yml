@@ -5,17 +5,8 @@ on:
   - workflow_dispatch
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: uv sync
-      - name: Run tests
-        run: uv run pytest -v
+  call-workflow:
+    uses: enveda/reusable-workflows/.github/workflows/uv-test-and-pre-commit.yml@v3
+    secrets: inherit
+    with:
+      python-versions: '["3.10"]'
