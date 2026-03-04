@@ -1,0 +1,77 @@
+[project]
+name = "dreams"
+version = "1.0.0"
+description = "DreaMS (Deep Representations Empowering the Annotation of Mass Spectra)"
+authors = [
+    { name = "DreaMS developers" },
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "numpy==1.25.0",
+    "numba==0.58.0",
+    "torch==2.2.1",
+    "pytorch-lightning==2.0.8",
+    "torchmetrics==1.3.2",
+    "pandas==2.2.1",
+    "pyarrow==15.0.2",
+    "h5py==3.11.0",
+    "rdkit==2023.9.6",
+    "umap-learn==0.5.6",
+    "seaborn==0.13.2",
+    "plotly==5.20.0",
+    "ase==3.22.1",
+    "wandb==0.16.4",
+    "pandarallel==1.6.5",
+    "matchms==0.27.0",
+    "pyopenms==3.3.0; sys_platform == 'darwin'",
+    "pyopenms==3.4.0; sys_platform != 'darwin'",
+    "igraph==0.11.4",
+    "molplotly==1.1.7",
+    "fire==0.6.0",
+    "huggingface_hub==0.33.5",
+    "setuptools==81.0.0",
+    "msml",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=3.2.2,<4",
+    "ruff>=0,<1",
+    "pytest>=8.2.0,<9",
+    "pytest-cov>=5.0.0,<6",
+    "Cython==3.0.9",
+    "SpectralEntropy",
+]
+notebooks = [
+    "jupyter>=1.0.0,<2",
+    "ipywidgets>=8.1.3,<9",
+    "ipykernel>=6,<7",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.uv.sources]
+msml = { git = "https://github.com/roman-bushuiev/msml_legacy_architectures.git", branch = "main" }
+SpectralEntropy = { git = "https://github.com/YuanyueLi/SpectralEntropy.git", rev = "a1151cfcd9adc66e46f95fb3b06a660e1b0c9b56" }
+
+[tool.uv.extra-build-dependencies]
+spectralentropy = ["Cython", "numpy"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = ["dreams"]
+
+[tool.hatch.build.targets.wheel]
+include = ["dreams"]
+
+[tool.ruff]
+lint.ignore = ["E722", "F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
